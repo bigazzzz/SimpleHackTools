@@ -1,4 +1,4 @@
-# -*- coding:utf -8 -*-
+# -*- coding: utf-8 -*-
 '''
 Usage:
     portscan_args.py [host] [ports]
