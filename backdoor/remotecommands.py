@@ -1,36 +1,29 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-'''
 
-Модуль с командами для клиентского backdoor
+import inspect
 
-'''
-
-def sysinfo():
+class RemoteCommands:
     '''
-    Вывод строчки с информацией об ОС
+    Модуль с командами для клиентского backdoor
     '''
-    return 'Информация о системе'
 
-def help():
-    '''
-    Вывод строки со всеми функиями этого модуля с описаниями
-    '''
-    from inspect import isfunction
+    def sysinfo():
+        '''
+        Вывод строчки с информацией об ОС
+        '''
+        return 'Информация о системе'
 
-    functions_list = []
-    for value in dir():
-        func = getattr(this, value)
-        print(func)
-  #      if isfunction(func)
-         #   functions_list.append(func)
-        #
+    def help():
+        '''
+        Вывод строки со всеми функиями этого модуля с описаниями
+        '''
 
+        result = "Вы можете использовать следующие команды:\n"
+        functions = inspect.getmembers(RemoteCommands, inspect.isfunction);
+        for f in functions:
+            result += f[0] + '\n\t' + f[1].__doc__.strip() + '\n'
+        return result
 
-    print(functions_list)
-    result = "Вы можете использовать следующие команды:\n"
-    for f in functions_list:
-      #  result += f[0] + '\n\t' + f[1].__doc__ + '\n'
-    return result
-
-print(help())
+if __name__ == "__main__":
+    print(RemoteCommands.help())
