@@ -20,5 +20,3 @@ while True:
     if request == 'exit':
         break
 sock.close()
-
-
