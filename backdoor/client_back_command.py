@@ -2,6 +2,10 @@
 # -*- coding: utf-8 -*-
 
 import socket
+<<<<<<< HEAD
+=======
+import remotecommands as command
+>>>>>>> parent of 98338cf... RemoteCommand added
 
 sock = socket.socket()
 sock.bind(('', 4444))
@@ -16,6 +20,17 @@ while True:
     print(data.decode('utf-8'))
     if data == b'exit':
         break
+<<<<<<< HEAD
     conn.send(data.upper())
 
+=======
+ #   try:
+    func = getattr(command,data)
+    data = func()
+    #except:
+    #    data = 'Такой команды нет. Наберите help для справки'
+    conn.send(bytes(data, encoding='utf-8'))
+
+conn.send(bytes("Работа завершена", encoding='utf-8'))
+>>>>>>> parent of 98338cf... RemoteCommand added
 conn.close()
