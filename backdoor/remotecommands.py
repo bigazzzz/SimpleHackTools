@@ -54,6 +54,11 @@ class RemoteCommands:
         '''
         return os.getcwd()
 
+    def exit():
+        '''
+        Выход
+        '''
+        return "Работа завершена"
 
 if __name__ == "__main__":
     print(RemoteCommands.help())

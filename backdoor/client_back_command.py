@@ -21,14 +21,12 @@ while True:
         command = data[:data.find(" ")]
         args = data[data.find(" "):].strip()
 
-    if command == 'exit':
-        break
-
     if hasattr(RemoteCommands, command) and not command.startswith('__'):
         result = getattr(RemoteCommands, command)()
     else:
         result = 'Такой команды нет. Наберите help для справки'
     conn.send(bytes(result, encoding='utf-8'))
+    if command == 'exit':
+        break
 
-conn.send(bytes("Работа завершена", encoding='utf-8'))
 conn.close()
