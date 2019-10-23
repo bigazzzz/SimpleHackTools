@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import socket
+
 from remotecommands import RemoteCommands
 
 sock = socket.socket()

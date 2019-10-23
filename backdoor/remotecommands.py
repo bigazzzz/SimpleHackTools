@@ -2,9 +2,10 @@
 # -*- coding: utf-8 -*-
 
 import inspect
-import sys
 import os
 import platform
+import sys
+
 
 class RemoteCommands:
     '''
