@@ -13,16 +13,22 @@ conn, addr = sock.accept()
 print ('connected:', addr)
 
 while True:
-    data = conn.recv(1024).decode('utf-8')
+    data = conn.recv(1024).decode('utf-8').strip()
+    if data.find(" ") == -1:
+        command = data
+        args = None
+    else:
+        command = data[:data.find(" ")]
+        args = data[data.find(" "):].strip()
 
-    if data == 'exit':
+    if command == 'exit':
         break
 
-    if hasattr(RemoteCommands, data) and not data.startswith('__'):
-        data = getattr(RemoteCommands, data)()
+    if hasattr(RemoteCommands, command) and not command.startswith('__'):
+        result = getattr(RemoteCommands, command)()
     else:
-        data = 'Такой команды нет. Наберите help для справки'
-    conn.send(bytes(data, encoding='utf-8'))
+        result = 'Такой команды нет. Наберите help для справки'
+    conn.send(bytes(result, encoding='utf-8'))
 
 conn.send(bytes("Работа завершена", encoding='utf-8'))
 conn.close()
