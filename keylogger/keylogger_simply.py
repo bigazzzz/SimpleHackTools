@@ -1,8 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import pythoncom
 import pyHook
+import pythoncom
 
 def OnKeyboardEvent(event):
     print ('MessageName:',event.MessageName) # описание события
