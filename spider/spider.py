@@ -6,10 +6,11 @@ class SitePage():
     def __init__(self, url):
         self.url = url
         self.response = self.response()
-        self.html = self.response.text
-        self.emails = self.emails(self.html)
-        self.links = self.links(self.html)
-        self.forms = self.forms(self.html)
+        if self.response.status_code == 200:
+            self.html = self.response.text
+            self.emails = self.emails(self.html)
+            self.links = self.links(self.html)
+            self.forms = self.forms(self.html)
 
     def response(self):
         return requests.request('GET', self.url)
@@ -60,4 +61,4 @@ url = 'http://evil.bigazzzz.ru:15073/test.html'
 test_page = SitePage(url)
 
 hr()
-print(test_page.response.status_code)
+print(test_page.emails)
