@@ -1,8 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import requests
-import re
+try:
+    import requests
+    import re
+except ImportError as error:
+    print('Please install '+error.name)
+    print('For example: pip install '+error.name)
 
 class SitePage():
 
@@ -55,3 +59,4 @@ class SitePage():
         for form_id, form in enumerate(re.findall(pattern, text, re.DOTALL)):
             forms[form_id]['content'] = form
         return forms
+
