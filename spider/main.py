@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
 from sitepagehtml5 import SitePageHtml5
 
 def hr():
