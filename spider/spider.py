@@ -22,8 +22,9 @@ def links(text):
     return urls - bad_result
 
 def forms(text):
-    pattern = r'<form(.+)>(.+)</form>'
-    return re.search(pattern,text,re.DOTALL).group()
+    pattern = r'<form\s(.+?)>(.*?)</form>'
+    return re.findall(pattern,text,re.DOTALL)
+
 
 def hr():
     print('*'*100)
