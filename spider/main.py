@@ -9,4 +9,4 @@ def hr():
 test_page = SitePageHtml5('http://evil.bigazzzz.ru:15073/test.html')
 
 hr()
-print(test_page.soap)
+print(test_page.soup)

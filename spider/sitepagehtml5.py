@@ -13,4 +13,4 @@ class SitePageHtml5(sitepage.SitePage):
 
     def __init__(self,url):
         super().__init__(url)
-        self.soap = html5lib.parse(self.html)
+        self.soup = html5lib.parse(self.html)
