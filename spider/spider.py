@@ -4,7 +4,7 @@ import json
 
 def emails(text):
     pattern = r'[A-Za-z0-9+%-.]+@[A-Za-z0-9-.]+\.[A-Za-z]+'
-    return json.dumps(list(set(re.findall(pattern, text))))
+    return set(re.findall(pattern, text))
 
 def links(text):
     bad_result = set()
@@ -20,7 +20,7 @@ def links(text):
         for bad_url in bad_urls:
             if re.fullmatch(bad_url, url) != None:
                 bad_result.add(url)
-    return json.dumps(list(urls - bad_result))
+    return urls-bad_result
 
 def forms(text):
     form_attr = ('name', 'method', 'action')
@@ -35,7 +35,7 @@ def forms(text):
     pattern = r'<form\s.+?>(.*?)</form>'
     for form_id, form in enumerate(re.findall(pattern, text, re.DOTALL)):
         forms[form_id]['content'] = form
-    return json.dumps(forms)
+    return forms
 
 
 def hr():
@@ -44,9 +44,12 @@ def hr():
 url = 'http://evil.bigazzzz.ru:15073/test.html'
 html_response = requests.request('GET', url)
 ''' в html_response.text - текст html-документа'''
+site = dict()
+site['url'] = url
+site['response'] = html_response
+site['emails'] = emails(html_response.text)
+site['links'] = links(html_response.text)
+site['forms'] = forms(html_response.text)
+
 hr()
-print(emails(html_response.text))
-hr()
-print(links(html_response.text))
-hr()
-print(forms(html_response.text))
+print(site)
